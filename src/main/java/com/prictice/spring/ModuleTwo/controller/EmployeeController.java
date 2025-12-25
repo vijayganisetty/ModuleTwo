@@ -1,24 +1,35 @@
 package com.prictice.spring.ModuleTwo.controller;
 
 
-import com.prictice.spring.ModuleTwo.DTO.EmployeeDTO;
+import com.prictice.spring.ModuleTwo.entity.EmployeeEntity;
+import com.prictice.spring.ModuleTwo.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/employees")
 public class EmployeeController {
 
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
 
     @GetMapping(path = "/{id}")
-    public EmployeeDTO getEmployeeById(@PathVariable Long id){
-        return new EmployeeDTO(id,"vijay","vijay@gamil.com",23, LocalDate.of(2024,10,2),true);
+    public EmployeeEntity getEmployeeById(@PathVariable Long id){
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @GetMapping()
-    public String getAllEmployees(@RequestParam Integer age){
-     return "the age is "+age;
+    public List<EmployeeEntity> getAllEmployees(){
+        return employeeRepository.findAll();
+    }
+
+    @PostMapping()
+    public EmployeeEntity getEmployeeById(@RequestBody EmployeeEntity employee){
+            return employeeRepository.save(employee);
     }
 }

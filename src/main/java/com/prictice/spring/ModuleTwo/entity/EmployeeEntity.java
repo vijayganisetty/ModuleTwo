@@ -1,15 +1,23 @@
-package com.prictice.spring.ModuleTwo.DTO;
+package com.prictice.spring.ModuleTwo.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Entity
+@Table(name = "employee")
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeDTO {
+@Getter
+@Setter
+public class EmployeeEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
