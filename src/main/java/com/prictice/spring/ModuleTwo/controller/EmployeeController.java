@@ -1,8 +1,10 @@
 package com.prictice.spring.ModuleTwo.controller;
 
 
+import com.prictice.spring.ModuleTwo.DTO.EmployeeDTO;
 import com.prictice.spring.ModuleTwo.entity.EmployeeEntity;
 import com.prictice.spring.ModuleTwo.repository.EmployeeRepository;
+import com.prictice.spring.ModuleTwo.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,25 +13,25 @@ import java.util.List;
 @RequestMapping(path = "/employees")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
 
     @GetMapping(path = "/{id}")
-    public EmployeeEntity getEmployeeById(@PathVariable Long id){
-        return employeeRepository.findById(id).orElse(null);
+    public EmployeeDTO getEmployeeById(@PathVariable Long id){
+        return employeeService.getEmployeeById(id);
     }
 
     @GetMapping()
-    public List<EmployeeEntity> getAllEmployees(){
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> getAllEmployees(){
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping()
-    public EmployeeEntity getEmployeeById(@RequestBody EmployeeEntity employee){
-            return employeeRepository.save(employee);
+    public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employee){
+            return employeeService.createEmployee(employee);
     }
 }
