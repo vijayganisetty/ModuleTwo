@@ -3,6 +3,7 @@ package com.prictice.spring.ModuleTwo.controller;
 
 import com.prictice.spring.ModuleTwo.DTO.EmployeeDTO;
 import com.prictice.spring.ModuleTwo.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employee){
+    public ResponseEntity<EmployeeDTO> createEmployee(@Valid @RequestBody EmployeeDTO employee){
         EmployeeDTO employeeDTO = employeeService.createEmployee(employee);
         return new ResponseEntity<>(employeeDTO, HttpStatus.CREATED);
     }
