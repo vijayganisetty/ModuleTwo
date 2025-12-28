@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class APIError {
 
-    private LocalDateTime localDateTime;
     private HttpStatus status;
     private String message;
     private List<String> subErrors;
